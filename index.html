@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tamluk Youth Computer Training Center</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:sans-serif;
+scroll-behavior:smooth;
+align-items: center;
+}
+
+/* BODY BACKGROUND */
+body{
+background:linear-gradient(135deg,#e0f7ff,#fff5e6);
+}
+
+/* MAIN HEADING */
+.main-heading{
+width:100%;
+background:linear-gradient(45deg,#0048ff,#ff0000);
+color:white;
+text-align:center;
+padding:15px 0;
+font-size:28px;
+font-weight:bold;
+animation:slideDown 1s ease-in-out;
+}
+
+@keyframes slideDown{
+from{opacity:0; transform:translateY(-50px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+/* NAVBAR */
+.navdiv{
+display:grid;
+grid-template-columns:120px 1fr 120px;
+align-items:center;
+background:white;
+padding:10px 0;
+box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+.logo img{
+height:45px;
+}
+
+#menuList{
+display:flex;
+justify-content:center;
+gap:35px;
+align-items:center;
+}
+
+#menuList li{
+list-style:none;
+}
+
+#menuList li a{
+color:#d62828;
+text-decoration:none;
+font-size:18px;
+position:relative;
+transition:0.3s;
+}
+
+#menuList li a::after{
+content:"";
+position:absolute;
+width:0%;
+height:2px;
+background:coral;
+left:0;
+bottom:-5px;
+transition:0.3s;
+}
+
+#menuList li a:hover{
+color:blue;
+}
+
+#menuList li a:hover::after{
+width:100%;
+}
+
+@media(max-width:768px){
+#menuList{display:none;}
+}
+
+/* SLIDER */
+.slider{
+width:100%;
+height:320px;
+overflow:hidden;
+position:relative;
+background:black;
+}
+
+.slider img{
+width:100%;
+height:100%;
+object-fit:contain;
+position:absolute;
+top:0;
+left:0;
+opacity:0;
+animation:slide 12s infinite;
+}
+
+.slider img:nth-child(1){animation-delay:0s;}
+.slider img:nth-child(2){animation-delay:4s;}
+.slider img:nth-child(3){animation-delay:8s;}
+
+@keyframes slide{
+0%{opacity:1;}
+33%{opacity:1;}
+40%{opacity:0;}
+100%{opacity:0;}
+}
+
+/* SECTION TITLE */
+.title{
+text-align:center;
+padding:30px 0;
+font-size:30px;
+color:#ff5722;
+font-weight:bold;
+animation:fadeIn 2s ease-in-out;
+}
+
+@keyframes fadeIn{
+from{opacity:0;}
+to{opacity:1;}
+}
+
+/* PROGRAM */
+.program-banner{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px 0;
+}
+
+
+.program-banner img{
+width:50%;
+border-radius:12px;
+text-align: center;
+margin-top: 5px;
+
+transform: rotate(270deg);
+}
+
+.program-text{
+padding:20px;
+text-align:center;
+font-size:18px;
+}
+
+/* CARDS */
+.youth-cards{
+display:flex;
+flex-wrap:wrap;
+gap:30px;
+padding:20px;
+justify-content:center;
+}
+
+.youth-card{
+width:280px;
+background:white;
+border-radius:15px;
+overflow:hidden;
+box-shadow:0 6px 15px rgba(0,0,0,0.15);
+transition:0.4s ease;
+opacity:0;
+transform:translateY(40px);
+animation:cardShow 1s forwards;
+}
+
+.youth-card:nth-child(1){animation-delay:0.3s;}
+.youth-card:nth-child(2){animation-delay:0.6s;}
+.youth-card:nth-child(3){animation-delay:0.9s;}
+.youth-card:nth-child(4){animation-delay:1.2s;}
+
+@keyframes cardShow{
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+.youth-card:hover{
+transform:translateY(-10px) scale(1.05);
+box-shadow:0 15px 30px rgba(0,0,0,0.3);
+}
+
+.youth-card img{
+width:100%;
+height:250px;
+object-fit:cover;
+
+}
+
+.youth-card div{
+padding:20px;
+}
+
+.youth-card h3{
+color:#ff5722;
+margin-bottom:10px;
+}
+/* FORM DESIGN */
+.form-container{
+display:flex;
+justify-content:center;
+padding:20px;
+}
+
+form{
+background:white;
+padding:30px;
+width:100%;
+max-width:500px;
+border-radius:20px;
+box-shadow:0 15px 30px rgba(0,0,0,0.2);
+display:flex;
+flex-direction:column;
+gap:15px;
+animation:fadeIn 1s ease-in-out;
+}
+
+form input,
+form select,
+form textarea{
+padding:12px;
+border:2px solid #ddd;
+border-radius:10px;
+font-size:16px;
+transition:0.3s;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus{
+border-color:#ff5722;
+outline:none;
+box-shadow:0 0 8px rgba(255,87,34,0.3);
+}
+
+form button{
+padding:12px;
+background:linear-gradient(45deg,#0048ff,#ff0000);
+color:white;
+font-size:18px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+transition:0.4s;
+}
+
+form button:hover{
+transform:scale(1.05);
+box-shadow:0 10px 20px rgba(0,0,0,0.3);
+}
+
+/* GALLERY */
+.gallery{
+padding:20px;
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+gap:20px;
+}
+
+.gallery-frame{
+padding:20px;
+background:white;
+border-radius:12px;
+border:2px solid coral;
+transition:0.4s;
+
+}
+
+.gallery-frame:hover{
+transform:scale(1.05);
+box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
+
+.gallery-frame img{
+width: 150px;
+height:230px;
+object-fit:cover;
+border-radius:10px;
+
+}
+.map-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px;
+}
+.map-container h2{
+  display: flex;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.facebook-btn{
+  position: fixed;
+  bottom:150px;
+  left:20px;
+  background: #ff5722;
+  padding:14px 22px;
+  border-radius:30px;
+  color:white;
+  font-weight:bold;
+  font-size:16px;
+  text-decoration:none;
+  animation:pulse 2s infinite;
+
+}
+.ai-button{
+  position: fixed;
+  bottom:200px;
+  left:20px;
+  background: #ff5722;
+  padding:14px 22px;
+  border-radius:30px;
+  color:white;
+  font-weight:bold;
+  font-size:16px;
+  text-decoration:none;
+  animation:pulse 2s infinite;
+}
+/* CALL BUTTON */
+.call-btn{
+position:fixed;
+bottom:100px;   /* WhatsApp 20px e, height approx 44px → tai 20+44+3 = 67 */
+right:20px;
+background:#ff5722;
+padding:14px 22px;
+border-radius:30px;
+color:white;
+font-weight:bold;
+font-size:16px;
+text-decoration:none;
+animation:pulse 2s infinite;
+}
+
+/* WHATSAPP BUTTON */
+.whatsapp-btn{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#25D366;
+padding:14px 22px;
+border-radius:30px;
+color:white;
+font-weight:bold;
+font-size:16px;
+text-decoration:none;
+animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+0%{box-shadow:0 0 0 0 rgba(37,211,102,0.7);}
+70%{box-shadow:0 0 0 18px rgba(37,211,102,0);}
+100%{box-shadow:0 0 0 0 rgba(37,211,102,0);}
+}
+.contact-header{
+background:linear-gradient(135deg,#0048ff,#ff0000);
+padding:60px 20px;
+text-align:center;
+color:white;
+position:relative;
+overflow:hidden;
+}
+
+.contact-header h2{
+font-size:34px;
+margin-bottom:15px;
+animation:fadeSlide 1s ease-in-out;
+}
+
+.contact-header p{
+font-size:18px;
+margin-bottom:30px;
+opacity:0.9;
+}
+
+@keyframes fadeSlide{
+from{opacity:0; transform:translateY(-30px);}
+to{opacity:1; transform:translateY(0);}
+}
+
+.contact-container{
+display:flex;
+justify-content:center;
+gap:25px;
+flex-wrap:wrap;
+}
+
+.contact-card{
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(10px);
+border-radius:15px;
+padding:20px 30px;
+color:white;
+text-decoration:none;
+transition:0.4s;
+min-width:220px;
+}
+
+.contact-card:hover{
+background:white;
+color:#0048ff;
+transform:translateY(-8px) scale(1.05);
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+.contact-card span{
+display:block;
+font-size:26px;
+margin-bottom:10px;
+}
+
+/* FOOTER */
+footer{
+background:#222;
+color:white;
+padding:25px;
+text-align:center;
+margin-top:30px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="main-heading">
+Tamluk Youth Computer Training Center
+</div>
+
+<nav>
+<div class="navdiv">
+<div class="logo"><img src="LOGO FINAL.jpg"></div>
+
+<ul id="menuList">
+<li><a href="#home">Home</a></li>
+<li><a href="#program">Certificate</a></li>
+<li><a href="#courses">Courses</a></li>
+<li><a href="#gallery">Gallery</a></li>
+<li><a href="#contact">Contact</a></li>
+<li><a href="#map">Map</a></li>
+</ul>
+</div>
+</nav>
+
+<section id="home">
+<div class="slider">
+<img src="slide-1.jpeg">
+<img src="slide-2.jpeg">
+<img src="slide3.jpeg">
+</div>
+</section>
+
+<section id="program">
+<div class="title">Certificate</div>
+<div class="program-banner">
+<img src="certificate.jpeg">
+</div>
+<div class="program-text">
+Amader center theke tour hochhe, jara jete chai tara jete paro.
+</div>
+</section>
+
+<section id="courses">
+<div class="title">Course Programs</div>
+
+<div class="youth-cards">
+<div class="youth-card">
+<img src="IT_cource.png">
+<div>
+<h3>IT Courses</h3>
+<ul>
+<li>CITA</li>
+<li>DITA</li>
+<li>ADITA</li>
+</ul>
+</div>
+</div>
+
+<div class="youth-card">
+<img src="typing.jpeg">
+<div>
+<h3>Typing Courses</h3>
+<ul>
+<li>Bengali Typing</li>
+<li>English Typing</li>
+<li>Touch Typing</li>
+</ul>
+</div>
+</div>
+<div class="youth-card">
+<img src="tally.jpeg">
+<div>
+<h3>Tally With GST</h3>
+<p>Tally,Gst,Advance Tally</p>
+</div>
+</div>
+<div class="youth-card">
+<img src="autocad.png">
+<div>
+<h3>AutoCad</h3>
+<p>CorelDRAW, Adobe Photoshop</p>
+</div>
+</div>
+</div>
+</section>
+<section id="admission">
+  <div class="title">Admission Form</div>
+
+  <div style="display:flex; justify-content:center; padding:20px;">
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLScIrjfYRQqbkvsKz9z5TU_RTKJnsox1OT8ANvvcFJOJ8qlCxA/viewform?embedded=true" width="640" height="850" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+
+</section>
+<section id="gallery">
+<div class="title">Photo Gallery</div>
+
+<div class="gallery">
+<div class="gallery-frame"><img src="gallery1.jpg"></div>
+<div class="gallery-frame"><img src="gallery-2.jpg"></div>
+<div class="gallery-frame"><img src="gallery-3.jpg"></div>
+<div class="gallery-frame"><img src="gallery-4.jpg"></div>
+<div class="gallery-frame"><img src="gallery-5.jpg"></div>
+<div class="gallery-frame"><img src="gallery-6.jpg"></div>
+<div class="gallery-frame"><img src="gallery-7.jpg"></div>
+</div>
+</section>
+<section>
+  <h2 style="display: flex;justify-content: center;">Our Map</h2>
+  <div class="map-container" id="map">
+    
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3691.415155879965!2d87.92247197474937!3d22.300133542902508!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02950215b8f567%3A0xf5ee4a7fe1d244e5!2sTamluk%20Town%20Youth%20Computer%20Center!5e0!3m2!1sen!2sin!4v1771904092719!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+</section>
+<a class="facebook-btn" href="https://facebook.com/tamluktown.youthcomputer.7" target="_blank">Facebook</a>
+<a class="ai-button" href="chat.html" >Youth AI</a>
+<a class="call-btn" href="tel:9932724516">
+Call Now
+</a>
+<a class="whatsapp-btn" href="https://wa.me/919932724516?text=Hello" target="_blank">
+WhatsApp Chat
+</a>
+<section class="contact-header">
+<h2>Contact Us</h2>
+<p>Get in touch with us for admission & course details</p>
+
+<div class="contact-container">
+
+<a href="tel:9932724516" class="contact-card">
+<span>📞</span>
+Call Now<br>
+9932724516
+</a>
+
+<a href="mailto:tamlukyouthcenter@gmail.com" class="contact-card">
+<span>📧</span>
+Email Us<br>
+tamlukyouthcenter@gmail.com
+</a>
+
+<a href="https://maps.google.com/?q=Tamluk,West Bengal" target="_blank" class="contact-card">
+<span>📍</span>
+Visit Us<br>
+Tamluk, West Bengal
+</a>
+
+</div>
+</section>
+<footer>
+© 2025 DEV DARSHAN — All Rights Reserved<br>
+THANK YOU FOR VISITING MY WEBSITE
+</footer>
+
+<section id="contact" style="text-align:center; margin:25px;">
+Developed by 
+<b style="background:linear-gradient(45deg,#ff0000,#0048ff);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;">
+Koustav
+</b>
+</section>
+
+</body>
+</html>

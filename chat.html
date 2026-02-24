@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Chat</title>
+
+<style>
+body{
+  font-family:sans-serif;
+  margin:0;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  background:#e5ddd5;
+}
+
+.header{
+  display:flex;
+  align-items:center;
+  background:#075e54;
+  color:white;
+  padding:10px;
+  gap:10px;
+}
+
+.header img{
+  width:40px;
+  height:40px;
+  border-radius:50%;
+}
+
+.chat-container{
+  flex:1;
+  padding:10px;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+}
+
+.message{
+  padding:10px 15px;
+  border-radius:20px;
+  max-width:70%;
+  white-space:pre-line;
+}
+
+.user-msg{
+  background:#dcf8c6;
+  align-self:flex-end;
+}
+
+.ai-msg{
+  background:white;
+  align-self:flex-start;
+}
+
+.options-container{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  padding:10px;
+}
+
+.option-btn{
+  padding:8px 15px;
+  background:#128c7e;
+  color:white;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+.input-container{
+  display:flex;
+  padding:10px;
+  background:#f0f0f0;
+}
+
+input{
+  flex:1;
+  padding:10px;
+  border-radius:20px;
+  border:1px solid #ccc;
+}
+
+button{
+  margin-left:10px;
+  padding:10px 20px;
+  border:none;
+  background:#075e54;
+  color:white;
+  border-radius:20px;
+  cursor:pointer;
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img src="LOGO FINAL.jpg">
+  <h2>AI Assistant</h2>
+</div>
+
+<div class="chat-container" id="chatContainer"></div>
+<div class="options-container" id="optionsContainer"></div>
+
+<div class="input-container">
+  <input type="text" id="userInput" placeholder="Type a message...">
+  <button onclick="sendMessage()">Send</button>
+</div>
+
+<script>
+
+// 🔹 আপনার নম্বর (without + sign)
+const PHONE_NUMBER = "919932724516";
+
+// Reply Rules
+const replyRules = {
+  hello: "Hello! How are you?",
+  fine: "That's great 😊 What would you like to know?",
+  fees: "Please choose a course 👇",
+  cita: "📚 CITA Course Details:\n\nDuration: 6 Months\nSubjects: MS Word, Excel, PowerPoint,VISUAL FOXPRO, basic Internet\nCourse Fee: ₹2000",
+  dita: "💻 DITA Course Details:\n\nDuration: 12 Months\nSubjects: OFFICE PACKAGEs,VB,SAD,Internet and email\nCourse Fee: ₹5000",
+  adita: "🖥 ADITA Course Details:\n\nDuration: 12 Months\nSubjects:OFFICE PACKAGEs,VB,SAD,Internet and email,c,c++,JAVA-SCRIPT,VB SCRIPT,HTML,DHTML \nCourse Fee: ₹8000",
+  cdta:"💻Fundamental,WIN-7/10,MICROSOFT PACKAGE,mobile operaring system,Cyber Security,Internet and email\nCourse Fee: ₹3000",
+  ddta:"🎮💻Fundamental,WIN-7/10,MICROSOFT PACKAGE,mobile operaring system,Cyber Security,Internet and email,Programming Concept,Algorithm and flowchart,c,c++,object orriented programming with Java,RDBMS(Mysql)\nCourse Fee: ₹3000",
+
+  time: "Class time is 10 AM to 5 PM.",
+  contact: "How would you like to contact us?"
+};
+
+let options = [
+  {label:"Say Hello", key:"hello"},
+  {label:"Course Fees", key:"fees"},
+  {label:"Contact", key:"contact"}
+];
+
+let messages = [];
+
+function renderMessages(){
+  const chat = document.getElementById("chatContainer");
+  chat.innerHTML="";
+  messages.forEach(m=>{
+    const div=document.createElement("div");
+    div.className="message "+(m.sender==="user"?"user-msg":"ai-msg");
+    div.innerText=m.text;
+    chat.appendChild(div);
+  });
+  chat.scrollTop=chat.scrollHeight;
+}
+
+function renderOptions(){
+  const container=document.getElementById("optionsContainer");
+  container.innerHTML="";
+  options.forEach(opt=>{
+    const btn=document.createElement("button");
+    btn.className="option-btn";
+    btn.innerText=opt.label;
+    btn.onclick=()=>handleOption(opt.key);
+    container.appendChild(btn);
+  });
+}
+
+function sendToWhatsApp(message){
+  const encodedMessage = encodeURIComponent(message);
+  const url = "https://wa.me/" + PHONE_NUMBER + "?text=" + encodedMessage;
+  window.open(url, "_blank");
+}
+
+function handleOption(key){
+
+  if(key==="call"){
+    window.location.href="tel:"+PHONE_NUMBER;
+    return;
+  }
+
+  if(key==="whatsapp"){
+    window.open("https://wa.me/"+PHONE_NUMBER,"_blank");
+    return;
+  }
+
+  if(key==="reset"){
+    options=[
+      {label:"Say Hello",key:"hello"},
+      {label:"Course Fees",key:"fees"},
+      {label:"Contact",key:"contact"}
+    ];
+    renderOptions();
+    return;
+  }
+
+  messages.push({sender:"user",text:key.toUpperCase()});
+  renderMessages();
+
+  setTimeout(()=>{
+    messages.push({sender:"ai",text:replyRules[key] || "Please choose an option."});
+    renderMessages();
+    updateOptions(key);
+  },500);
+}
+
+function updateOptions(key){
+
+  if(key==="fees"){
+    options=[
+      {label:"📚 CITA Course",key:"cita"},
+      {label:"💻 DITA Course",key:"dita"},
+      {label:"🖥 ADITA Course",key:"adita"},
+      {label:"🖥 CDTA cource",key:"cdta"},
+      {label:"🖥 DDTA Course",key:"ddta"}
+
+    ];
+  }
+
+  else if(key==="cita" || key==="dita" || key==="adita" || key==="cdta" || key==="ddta"  ){
+    options=[
+      {label:"Back to Main Menu",key:"reset"}
+    ];
+  }
+
+  else if(key==="contact"){
+    options=[
+      {label:"📞 Call Now",key:"call"},
+      {label:"💬 WhatsApp",key:"whatsapp"},
+      {label:"Back to Main Menu",key:"reset"}
+    ];
+  }
+
+  else{
+    options=[
+      {label:"Say Hello",key:"hello"},
+      {label:"Course Fees",key:"fees"},
+      {label:"Contact",key:"contact"}
+    ];
+  }
+
+  renderOptions();
+}
+
+function sendMessage(){
+  const input=document.getElementById("userInput");
+  const text=input.value.trim();
+  if(!text) return;
+
+  messages.push({sender:"user",text:text});
+  renderMessages();
+  input.value="";
+
+  setTimeout(()=>{
+    const lower=text.toLowerCase();
+    let reply=null;
+    let triggerKey=null;
+
+    if(lower.includes("hello")) { reply=replyRules.hello; triggerKey="hello"; }
+    else if(lower.includes("fine")) { reply=replyRules.fine; triggerKey="fine"; }
+    else if(lower.includes("fees")) { reply=replyRules.fees; triggerKey="fees"; }
+    else if(lower.includes("cita")) { reply=replyRules.cita; triggerKey="cita"; }
+    else if(lower.includes("dita")) { reply=replyRules.dita; triggerKey="dita"; }
+    else if(lower.includes("adita")) { reply=replyRules.adita; triggerKey="adita"; }
+    else if(lower.includes("contact") || lower.includes("call") || lower.includes("phone")){
+        reply=replyRules.contact;
+        triggerKey="contact";
+    }
+
+    if(reply){
+      messages.push({sender:"ai",text:reply});
+      renderMessages();
+      updateOptions(triggerKey);
+    }
+    else{
+      messages.push({sender:"ai",text:"Forwarding your message to our WhatsApp support..."});
+      renderMessages();
+      sendToWhatsApp(text);
+    }
+
+  },500);
+}
+
+renderOptions();
+
+</script>
+
+</body>
+</html>
